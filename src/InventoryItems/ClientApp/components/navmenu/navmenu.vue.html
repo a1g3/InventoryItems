@@ -1,37 +1,24 @@
 <template>
     <div class="main-nav">
-        <div class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">InventoryItems</a>
-            </div>
-            <div class="clearfix"></div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <router-link to="/" :exact="true">
-                            <span class="glyphicon glyphicon-home"></span> Home
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/counter">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <router-link to="/" :exact="true" class="navbar-brand">Home</router-link>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <router-link to="/counter" class="nav-link">
                             <span class="glyphicon glyphicon-education"></span> Counter
                         </router-link>
                     </li>
-                    <li>
-                        <router-link to="/fetchdata">
+                    <li class="nav-item">
+                        <router-link to="/fetchdata" class="nav-link">
                             <span class="glyphicon glyphicon-th-list"></span> Fetch data
                         </router-link>
                     </li>
                 </ul>
             </div>
-        </div>
+        </nav>
     </div>
 </template>
-
-<style src="./navmenu.css" />
