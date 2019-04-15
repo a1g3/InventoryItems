@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const bundleOutputDir = './wwwroot/dist';
 
@@ -8,6 +10,7 @@ module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
 
     return [{
+        mode: isDevBuild ? 'development' : 'production',
         stats: { modules: false },
         context: __dirname,
         resolve: { extensions: [ '.js', '.ts' ] },
@@ -16,7 +19,7 @@ module.exports = (env) => {
             rules: [
                 { test: /\.vue\.html$/, include: /ClientApp/, loader: 'vue-loader', options: { loaders: { js: 'awesome-typescript-loader?silent=true' } } },
                 { test: /\.ts$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true' },
-                { test: /\.css$/, use: isDevBuild ? [ 'style-loader', 'css-loader' ] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
+                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [MiniCssExtractPlugin.loader, 'css-loader'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
@@ -26,7 +29,12 @@ module.exports = (env) => {
             publicPath: 'dist/'
         },
         plugins: [
+            new VueLoaderPlugin(),
             new CheckerPlugin(),
+            new MiniCssExtractPlugin({
+                filename: isDevBuild ? '[name].css' : '[name].[hash].css',
+                chunkFilename: isDevBuild ? '[id].css' : '[id].[hash].css',
+            }),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
@@ -44,8 +52,17 @@ module.exports = (env) => {
             })
         ] : [
             // Plugins that apply in production builds only
-            new webpack.optimize.UglifyJsPlugin(),
-            new ExtractTextPlugin('site.css')
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                uglifyOptions: {
+                    compress: false,
+                    ecma: 6,
+                    mangle: true
+                },
+                sourceMap: true
+            }),
+            new MiniCssExtractPlugin('site.css')
         ])
     }];
 };

@@ -239,4 +239,3 @@ _Pvt_Extensions
 src/InventoryItems/node_modules/
 src/InventoryItems/wwwroot/dist/
 src/InventoryItems/package-lock.json
-src/InventoryItems/webpack.config.vendor.js
