@@ -13,7 +13,7 @@ namespace InventoryItems.Data {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer("");
+                optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=InventoryDB;Trusted_Connection=True;");
         }
     }
 }
