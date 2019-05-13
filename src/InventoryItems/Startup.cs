@@ -1,28 +1,60 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using Autofac;
+using InventoryItems.Controllers;
+using InventoryItems.Domain;
+using InventoryItems.Domain.Interfaces.Infastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InventoryItems
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
+        public IConfigurationRoot Configuration { get; set; }
+        public void ConfigureServices(IServiceCollection services) {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            services.AddMvc().AddControllersAsServices();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Domain"],
+                    ValidAudience = Configuration["Domain"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                                    Encoding.UTF8.GetBytes(Configuration["TokenSecurityKey"]))
+                };
+            });
         }
 
-        public IConfiguration Configuration { get; }
+        public void ConfigureContainer(ContainerBuilder builder) {
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly(), Assembly.Load("InventoryItems.Domain"), Assembly.Load("InventoryItems.Data"))
+                .AsImplementedInterfaces().PropertiesAutowired();
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
+            builder.RegisterType<ProjectsController>().PropertiesAutowired();
+            builder.RegisterType<AccountsController>().PropertiesAutowired();
+
+            var settings = new Settings();
+            Configuration.Bind(settings);
+            builder.RegisterInstance(settings).As<ISettings>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +74,7 @@ namespace InventoryItems
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
