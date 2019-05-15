@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using InventoryItems.Controllers;
 using InventoryItems.Domain;
@@ -16,9 +9,11 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
-namespace InventoryItems
-{
+namespace InventoryItems {
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
@@ -79,7 +74,7 @@ namespace InventoryItems
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

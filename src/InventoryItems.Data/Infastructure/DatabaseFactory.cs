@@ -9,6 +9,10 @@ namespace InventoryItems.Data.Infastructure {
             mContext = new Lazy<InventoryContext>();
         }
 
+        public DatabaseFactory(InventoryContext context) {
+            this.mContext = new Lazy<InventoryContext>(() => context);
+        }
+
         public InventoryContext GetContext() {
             return mContext.Value;
         }
