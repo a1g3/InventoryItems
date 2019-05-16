@@ -24,7 +24,7 @@ module.exports = (env) => {
         },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: isDevBuild ? ['style-loader', 'css-loader'] : [MiniCssExtractPlugin.loader, 'css-loader'] },
+                { test: /\.css(\?|$)/, use: isDevBuild ? [MiniCssExtractPlugin.loader, 'css-loader'] : [MiniCssExtractPlugin.loader, 'css-loader?minimize'] },
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
             ]
         },
