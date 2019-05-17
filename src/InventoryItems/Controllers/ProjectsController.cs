@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using InventoryItems.Domain.Exceptions;
 using InventoryItems.Domain.Interfaces.Facades;
 using InventoryItems.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 
 namespace InventoryItems.Controllers {
     [Route("api/[controller]")]
@@ -29,8 +32,13 @@ namespace InventoryItems.Controllers {
         }
 
         [HttpPut]
-        public ActionResult Create(string name) {
-            
+        public HttpResponseMessage Create(string name) {
+            try {
+                ProjectFacade.CreateProject(name);
+                return new HttpResponseMessage(HttpStatusCode.Created);
+            } catch (NameAlreadyExistsException) {
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            }
         }
     }
 }

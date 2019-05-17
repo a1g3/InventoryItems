@@ -16,5 +16,9 @@ export default class FetchDataComponent extends Vue {
             .then(data => {
                 this.projects = data;
             });
+    };
+
+    openCreateProjectDialog() {
+        alert("Create project?");
     }
 }

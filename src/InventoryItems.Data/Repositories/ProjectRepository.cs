@@ -10,6 +10,12 @@ namespace InventoryItems.Data.Repositories {
     public class ProjectRepository : Repository<Projects>, IProjectRepository {
         public ProjectRepository(IDatabaseFactory factory) : base(factory) {}
 
+        public bool DoesProjectExist(string name) {
+            return (from project in this.Db
+                    where string.Equals(project.Name, name, StringComparison.Ordinal)
+                    select project).Any();
+        }
+
         public ProjectDto GetById(Guid projectId) {
             var projectEntity = (from project in this.Db
                     where project.Id == projectId
