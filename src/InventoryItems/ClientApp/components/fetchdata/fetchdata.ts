@@ -6,7 +6,11 @@ interface Projects {
     id: string;
 }
 
-@Component
+@Component({
+    components: {
+        ParentComponent: require('../parent/parent.vue.html').default
+    }
+})
 export default class FetchDataComponent extends Vue {
     projects: Projects[] = [];
 
