@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Projects</h1>
-        <ParentComponent />
+        <CoinDialog />
         <div v-if="projects.length">
             <div v-for="project in projects">
                 <router-link :to="{name:'project', params:{id:project.id}}">{{project.name}}</router-link>

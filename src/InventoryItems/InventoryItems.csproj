@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\components\parent\parent.ts" />
+    <None Remove="ClientApp\components\coinDialog\coinDialog.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\parent\parent.ts" />
+    <TypeScriptCompile Include="ClientApp\components\coinDialog\coinDialog.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

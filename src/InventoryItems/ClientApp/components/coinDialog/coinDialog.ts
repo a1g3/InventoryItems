@@ -13,8 +13,10 @@ class Coin {
 }
 
 @Component
-export default class ParentComponent extends Vue {
+export default class CoinDialog extends Vue {
     dialog: boolean = false;
+    snackbar: boolean = false;
+    disableButtons: boolean = false;
     items: string[] = ['United States', 'Canada']
     coin_types: string[] = ['Cent', 'Nickel', 'Dime', 'Quarter', 'Half Dollar', 'Small Dollar', 'Large Dollar']
     coin_conditions: string[] = ['Good', 'Very Good', 'Fine', 'Very Fine', 'Extremely Fine', 'About Uncirculated', 'Mint State']
@@ -23,16 +25,20 @@ export default class ParentComponent extends Vue {
     submit(): void {
         this.$validator.validateAll().then((result) => {
             if (!result) {
-                alert('error');
                 return;
             }
-            this.dialog = false;
+            this.disableButtons = true;
             fetch('api/Projects/CreateProject', {
                 method: 'PUT',
                 body: JSON.stringify(this.coin),
                 headers: {
                     'Content-Type': 'application/json'
                 }
+            }).then(() => {
+                this.disableButtons = false;
+                this.dialog = false;
+                this.snackbar = true;
+                this.clear();
             });
         });
     }

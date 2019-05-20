@@ -8,7 +8,7 @@ interface Projects {
 
 @Component({
     components: {
-        ParentComponent: require('../parent/parent.vue.html').default
+        CoinDialog: require('../coinDialog/coinDialog.vue.html').default
     }
 })
 export default class FetchDataComponent extends Vue {
@@ -21,8 +21,4 @@ export default class FetchDataComponent extends Vue {
                 this.projects = data;
             });
     };
-
-    openCreateProjectDialog() {
-        alert("Create project?");
-    }
 }
