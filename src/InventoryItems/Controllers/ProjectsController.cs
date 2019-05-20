@@ -40,5 +40,11 @@ namespace InventoryItems.Controllers {
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
         }
+
+        [HttpPut]
+        [Route("[action]")]
+        public HttpResponseMessage CreateProject([FromBody]string data) {
+            return new HttpResponseMessage(HttpStatusCode.Created);
+        }
     }
 }

@@ -5,7 +5,10 @@ import 'bootstrap';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
+import VeeValidate from 'vee-validate';
+
 Vue.use(VueRouter);
+Vue.use(VeeValidate);
 Vue.use(Vuetify);
 
 const routes = [
