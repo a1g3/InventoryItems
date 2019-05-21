@@ -13,9 +13,7 @@ Vue.use(Vuetify);
 
 const routes = [
     { path: '/', component: require('./components/home/home.vue.html').default },
-    { path: '/counter', component: require('./components/counter/counter.vue.html').default },
-    { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html').default },
-    { name: 'project', path: '/project/:id', component: require('./components/project/project.vue.html').default }
+    { name: 'collection', path: '/collection/:id', component: require('./components/collection/collection.vue.html').default }
 ];
 
 new Vue({

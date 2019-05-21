@@ -13,30 +13,30 @@ using System.Text;
 namespace InventoryItems.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class CollectionsController : ControllerBase
     {
-        public IProjectFacade ProjectFacade { get; set; }
+        public ICollectionFacade CollectionFacade { get; set; }
 
         [HttpGet]
         [Route("[action]")]
-        public JsonResult GetProjectList() {
-            var viewModel = new List<ProjectViewModel>() {
-                new ProjectViewModel(){ Name = "Project 1", Id = Guid.NewGuid() },
-                new ProjectViewModel(){ Name = "Project 2", Id = Guid.NewGuid() }
+        public JsonResult GetCollectionList() {
+            var viewModel = new List<CollectionViewModel>() {
+                new CollectionViewModel(){ Name = "Collection 1", Id = Guid.NewGuid() },
+                new CollectionViewModel(){ Name = "Collection 2", Id = Guid.NewGuid() }
             };
             return new JsonResult(viewModel);
         }
 
         [HttpGet]
-        public JsonResult Get(Guid projectId) {
-            var project = ProjectFacade.GetById(projectId);
-            return new JsonResult(Mapper.Map<ProjectViewModel>(project));
+        public JsonResult Get(Guid collectionId) {
+            var collection = CollectionFacade.GetById(collectionId);
+            return new JsonResult(Mapper.Map<CollectionViewModel>(collection));
         }
 
         [HttpPut]
         public HttpResponseMessage Create(string name) {
             try {
-                ProjectFacade.CreateProject(name);
+                CollectionFacade.CreateCollection(name);
                 return new HttpResponseMessage(HttpStatusCode.Created);
             } catch (NameAlreadyExistsException) {
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
@@ -45,7 +45,7 @@ namespace InventoryItems.Controllers {
 
         [HttpPut]
         [Route("[action]")]
-        public HttpResponseMessage CreateProject(CoinViewModel coin) {
+        public HttpResponseMessage CreateCoin(CoinViewModel coin) {
             string documentContents;
             using (Stream receiveStream = this.Request.Body) {
                 using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8)) {

@@ -28,7 +28,7 @@ export default class CoinDialog extends Vue {
                 return;
             }
             this.disableButtons = true;
-            fetch('api/Projects/CreateProject', {
+            fetch('api/Coins/CreateCoin', {
                 method: 'PUT',
                 body: JSON.stringify(this.coin),
                 headers: {

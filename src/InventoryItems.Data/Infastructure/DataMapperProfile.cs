@@ -5,7 +5,7 @@ using InventoryItems.Domain.Dtos;
 namespace InventoryItems.Data.Infastructure {
     public class DataMapperProfile : Profile {
         public DataMapperProfile() {
-            CreateMap<Projects, ProjectDto>(MemberList.Destination);
+            CreateMap<Collections, CollectionDto>(MemberList.Destination);
         }
     }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace InventoryItems.Data.Entities {
-    public class Projects {
+    public class Collections {
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Items> Items { get; set; }
-        public ICollection<Locations> Locations { get; set; }
+        public ICollection<Coins> Items { get; set; }
     }
 }

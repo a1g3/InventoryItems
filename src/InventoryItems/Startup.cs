@@ -44,7 +44,7 @@ namespace InventoryItems {
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly(), Assembly.Load("InventoryItems.Domain"), Assembly.Load("InventoryItems.Data"))
                 .AsImplementedInterfaces().PropertiesAutowired();
 
-            builder.RegisterType<ProjectsController>().PropertiesAutowired();
+            builder.RegisterType<CollectionsController>().PropertiesAutowired();
             builder.RegisterType<AccountsController>().PropertiesAutowired();
 
             var settings = new Settings();

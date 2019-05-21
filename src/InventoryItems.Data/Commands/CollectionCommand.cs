@@ -7,13 +7,13 @@ using InventoryItems.Domain.Interfaces.Commands;
 using InventoryItems.Domain.Interfaces.Infastructure;
 
 namespace InventoryItems.Data.Commands {
-    public class ProjectCommand : IProjectCommand {
+    public class CollectionCommand : ICollectionCommand {
         public IUnitOfWorkFactory UnitOfWorkFactory { get; set; }
 
-        public void CreateProject(ProjectDto projectDto) {
-            var projectEntity = Mapper.Map<Projects>(projectDto);
+        public void CreateCollection(CollectionDto collectionDto) {
+            var collectionEntity = Mapper.Map<Collections>(collectionDto);
             using (var unitOfWork = UnitOfWorkFactory.GetUnitOfWork())
-                unitOfWork.Queue(new EntityCommand<Projects>(CommandType.CREATE, projectEntity));
+                unitOfWork.Queue(new EntityCommand<Collections>(CommandType.CREATE, collectionEntity));
         }
     }
 }
