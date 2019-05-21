@@ -1,4 +1,5 @@
-﻿using InventoryItems.Domain.Enums;
+﻿using InventoryItems.Data.Entities;
+using InventoryItems.Domain.Enums;
 using InventoryItems.Domain.Interfaces.Infastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +19,7 @@ namespace InventoryItems.Data.Infastructure {
             if (Database == null) Database = new InventoryContext();
             while (_commands.Count > 0) {
                 ICommand command = _commands.Dequeue();
-                if (command is EntityCommand<object> website) CommandHandler<object>.Handle(null, website);
+                if (command is EntityCommand<Collections> collections) CommandHandler<Collections>.Handle(Database.Collections, collections);
                 else throw new NotImplementedException();
             }
 

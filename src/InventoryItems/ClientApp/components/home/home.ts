@@ -6,7 +6,11 @@ interface Collection {
     id: string;
 }
 
-@Component
+@Component({
+    components: {
+        CollectionDialog: require('../collectionDialog/collectionDialog.vue.html').default
+    }
+})
 export default class HomeComponent extends Vue {
     collections: Collection[] = [];
 

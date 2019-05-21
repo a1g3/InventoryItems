@@ -1,5 +1,7 @@
 using Autofac;
+using AutoMapper;
 using InventoryItems.Controllers;
+using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain;
 using InventoryItems.Domain.Interfaces.Infastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -67,6 +69,11 @@ namespace InventoryItems {
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            Mapper.Initialize(config => {
+                config.AddProfile<DataMapperProfile>();
+            });
+            Mapper.AssertConfigurationIsValid();
 
             app.UseStaticFiles();
             app.UseAuthentication();

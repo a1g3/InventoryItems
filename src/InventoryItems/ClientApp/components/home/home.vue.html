@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Collections</h1>
+        <CollectionDialog />
         <div v-if="collections.length">
             <div v-for="collection in collections">
                 <router-link :to="{name:'collection', params:{id:collection.id}}">{{collection.name}}</router-link>

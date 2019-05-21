@@ -34,9 +34,10 @@ namespace InventoryItems.Controllers {
         }
 
         [HttpPut]
-        public HttpResponseMessage Create(string name) {
+        [Route("[action]")]
+        public HttpResponseMessage Create(CollectionViewModelIn collection) {
             try {
-                CollectionFacade.CreateCollection(name);
+                CollectionFacade.CreateCollection(collection.Name);
                 return new HttpResponseMessage(HttpStatusCode.Created);
             } catch (NameAlreadyExistsException) {
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
