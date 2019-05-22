@@ -1,5 +1,5 @@
 ﻿import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 
 class Coin {
     constructor() { }
@@ -14,6 +14,10 @@ class Coin {
 
 @Component
 export default class CoinDialog extends Vue {
+    @Prop({
+        default: ''
+    }) collectionId!: string
+
     dialog: boolean = false;
     snackbar: boolean = false;
     disableButtons: boolean = false;
@@ -21,6 +25,7 @@ export default class CoinDialog extends Vue {
     coin_types: string[] = ['Cent', 'Nickel', 'Dime', 'Quarter', 'Half Dollar', 'Small Dollar', 'Large Dollar']
     coin_conditions: string[] = ['Good', 'Very Good', 'Fine', 'Very Fine', 'Extremely Fine', 'About Uncirculated', 'Mint State']
     coin: Coin = new Coin();
+    timeout: number = 5000;
 
     submit(): void {
         this.$validator.validateAll().then((result) => {
@@ -28,7 +33,7 @@ export default class CoinDialog extends Vue {
                 return;
             }
             this.disableButtons = true;
-            fetch('api/Coins/CreateCoin', {
+            fetch('api/collections/' + this.collectionId + '/coins/createcoin', {
                 method: 'PUT',
                 body: JSON.stringify(this.coin),
                 headers: {

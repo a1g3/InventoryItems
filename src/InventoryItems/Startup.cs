@@ -83,6 +83,11 @@ namespace InventoryItems {
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
 
+                routes.MapRoute(
+                    name: "project",
+                    template: "collection/{collectionId}"
+                    );
+
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });

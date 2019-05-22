@@ -3,7 +3,7 @@
         <div>
             <h1>Collection {{ $route.params.id }}</h1>
         </div>
-        <CoinDialog />
+        <CoinDialog :collectionId="$route.params.id" />
     </div>
 </template>
 
