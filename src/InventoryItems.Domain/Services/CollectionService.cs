@@ -1,8 +1,10 @@
-﻿using InventoryItems.Domain.Interfaces.Commands;
+﻿using InventoryItems.Domain.Dtos;
+using InventoryItems.Domain.Interfaces.Commands;
 using InventoryItems.Domain.Interfaces.Infastructure;
 using InventoryItems.Domain.Interfaces.Repositories;
 using InventoryItems.Domain.Interfaces.Services;
 using System;
+using System.Collections.Generic;
 
 namespace InventoryItems.Domain.Services {
     public class CollectionService : ICollectionService {

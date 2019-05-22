@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -20,10 +21,7 @@ namespace InventoryItems.Controllers {
         [HttpGet]
         [Route("[action]")]
         public JsonResult GetCollectionList() {
-            var viewModel = new List<CollectionViewModel>() {
-                new CollectionViewModel(){ Name = "Collection 1", Id = Guid.NewGuid() },
-                new CollectionViewModel(){ Name = "Collection 2", Id = Guid.NewGuid() }
-            };
+            var viewModel = CollectionFacade.GetAll().Select(Mapper.Map<CollectionViewModel>);
             return new JsonResult(viewModel);
         }
 

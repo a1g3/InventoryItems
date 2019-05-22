@@ -8,6 +8,6 @@ namespace InventoryItems.Data.Entities {
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Coins> Items { get; set; }
+        public ICollection<Coins> Coins { get; set; }
     }
 }

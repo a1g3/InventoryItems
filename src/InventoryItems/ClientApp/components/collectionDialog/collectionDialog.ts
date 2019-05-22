@@ -14,6 +14,7 @@ export default class CollectionDialog extends Vue {
     disableButtons: boolean = false;
     collection: Collection = new Collection();
     timeout: Number = 5000;
+    alert: boolean = true;
 
     submit(): void {
         this.$validator.validateAll().then((result) => {
@@ -27,11 +28,19 @@ export default class CollectionDialog extends Vue {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(() => {
-                this.disableButtons = false;
-                this.dialog = false;
-                this.snackbar = true;
-                this.clear();
+            }).then((response) => {
+                response.json().then(json => {
+                    if (json.isSuccessStatusCode) {
+                        this.$emit('collectionCreated');
+                        this.disableButtons = false;
+                        this.dialog = false;
+                        this.snackbar = true;
+                        this.clear();
+                    } else if (json.statusCode == 409) {
+                        this.disableButtons = false;
+                        alert('A collection with this name already exists!');
+                    }
+                });
             });
         });
     }

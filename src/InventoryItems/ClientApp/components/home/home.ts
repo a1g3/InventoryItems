@@ -15,10 +15,14 @@ export default class HomeComponent extends Vue {
     collections: Collection[] = [];
 
     mounted() {
+        this.loadCollectionList();
+    };
+
+    loadCollectionList() {
         fetch('api/Collections/GetCollectionList')
             .then(response => response.json() as Promise<Collection[]>)
             .then(data => {
                 this.collections = data;
-            });
-    };
+        });
+    }
 }
