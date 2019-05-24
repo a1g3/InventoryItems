@@ -4,7 +4,7 @@ namespace InventoryItems.Domain.Dtos {
     public class CoinDto {
         public Guid Id { get; set; }
         public short Country { get; set; }
-        public short Coin { get; set; }
+        public short Type { get; set; }
         public short Year { get; set; }
         public short Mint { get; set; }
         public short Condition { get; set; }

@@ -4,6 +4,17 @@
             <h1>Collection {{ $route.params.id }}</h1>
         </div>
         <CoinDialog :collectionId="$route.params.id" />
+        <v-data-table :headers="headers"
+                      :items="coins"
+                      class="elevation-1">
+            <template v-slot:items="coins">
+                <td>{{ coins.item.id }}</td>
+                <td class="text-xs-right">{{ coins.item.type }}</td>
+                <td class="text-xs-right">{{ coins.item.year }}</td>
+                <td class="text-xs-right">{{ coins.item.condition }}</td>
+                <td class="text-xs-right">{{ coins.item.mint }}</td>
+            </template>
+        </v-data-table>
     </div>
 </template>
 
