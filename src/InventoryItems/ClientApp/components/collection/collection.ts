@@ -5,6 +5,7 @@ class Coin {
     constructor() { }
 
     id: string = '';
+    friendlyId: string = '';
     country: string = '';
     type: string = '';
     year: string = '';
@@ -17,7 +18,7 @@ class Coin {
 export default class CollectionComponent extends Vue {
     coins: Coin[] = [];
 
-    collectionId: string = '1a7e25d8-5ece-467c-95ff-4cbd4405292b';
+    collectionId: string = '';
     dialog: boolean = false;
     snackbar: boolean = false;
     disableButtons: boolean = false;
@@ -39,11 +40,19 @@ export default class CollectionComponent extends Vue {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(() => {
-                this.disableButtons = false;
-                this.dialog = false;
-                this.snackbar = true;
-                this.clear();
+            }).then((response) => {
+                response.json().then(json => {
+                    if (json.isSuccessStatusCode) {
+                        this.disableButtons = false;
+                        this.dialog = false;
+                        this.snackbar = true;
+                        this.clear();
+                        this.loadCoinList();
+                    } else {
+                        this.disableButtons = false;
+                        alert('Server Error!');
+                    }
+                });
             });
         });
     }
@@ -61,6 +70,7 @@ export default class CollectionComponent extends Vue {
 
 
     mounted() {
+        this.collectionId = this.$route.params.id;
         this.loadCoinList();
     };
 
@@ -77,7 +87,7 @@ export default class CollectionComponent extends Vue {
             {
                 text: 'Id',
                 align: 'left',
-                value: 'id'
+                value: 'friendlyId'
             },
             { text: 'Type', value: 'type', align: 'right' },
             { text: 'Year', value: 'year', align: 'right' },

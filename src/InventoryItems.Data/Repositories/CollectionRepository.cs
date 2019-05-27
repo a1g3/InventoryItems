@@ -14,7 +14,7 @@ namespace InventoryItems.Data.Repositories {
         public IList<CollectionEntityDto> GetAll() {
             var collections = (from collection in this.Db
                                select collection).ToList();
-            return collections.Count == 0 ? null : collections.Select(Mapper.Map<CollectionEntityDto>).ToList();
+            return collections.Select(Mapper.Map<CollectionEntityDto>).ToList();
         }
 
         public bool DoesCollectionExist(string name) {

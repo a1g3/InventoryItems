@@ -16,7 +16,7 @@
                         <v-container grid-list-md>
                             <v-layout wrap>
                                 <v-flex sm2>
-                                    <v-text-field label="ID" v-model="coin.id"></v-text-field>
+                                    <v-text-field label="ID" v-model="coin.friendlyId"></v-text-field>
                                 </v-flex>
                                 <v-flex sm2>
                                     <v-autocomplete :items="items" label="Country*" v-model="coin.country" v-validate="'required'" :error-messages="errors.collect('country')" data-vv-name="country" required></v-autocomplete>
@@ -56,7 +56,7 @@
                       :items="coins"
                       class="elevation-1">
             <template v-slot:items="coins">
-                <td>{{ coins.item.id }}</td>
+                <td>{{ coins.item.friendlyId }}</td>
                 <td class="text-xs-right">{{ coins.item.type }}</td>
                 <td class="text-xs-right">{{ coins.item.year }}</td>
                 <td class="text-xs-right">{{ coins.item.condition }}</td>

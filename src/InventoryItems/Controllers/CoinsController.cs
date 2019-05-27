@@ -18,9 +18,13 @@ namespace InventoryItems.Controllers {
         [Route("api/collections/{collectionId}/coins/createcoin")]
         public HttpResponseMessage CreateCoin(Guid collectionId, CoinViewModel coin)
         {
-            coin.Mint = "Denver";
-            CoinFacade.CreateCoin(collectionId, Mapper.Map<CoinDto>(coin));
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            try {
+                coin.Mint = "Denver";
+                CoinFacade.CreateCoin(collectionId, Mapper.Map<CoinDto>(coin));
+                return new HttpResponseMessage(HttpStatusCode.Created);
+            } catch {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: api/Coins
