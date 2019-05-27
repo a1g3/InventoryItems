@@ -1,8 +1,9 @@
 ﻿using InventoryItems.Domain.Dtos;
+using InventoryItems.Domain.EntityDtos;
 
 namespace InventoryItems.Domain.Interfaces.Services {
     public interface IAuthenticationService {
-        User ValidateLogin(string username, string password);
-        string GenerateToken(User user);
+        UserEntityDto ValidateLogin(string username, string password);
+        string GenerateToken(UserEntityDto user);
     }
 }

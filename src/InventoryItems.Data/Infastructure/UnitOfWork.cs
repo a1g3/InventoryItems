@@ -20,6 +20,7 @@ namespace InventoryItems.Data.Infastructure {
             while (_commands.Count > 0) {
                 ICommand command = _commands.Dequeue();
                 if (command is EntityCommand<Collections> collections) CommandHandler<Collections>.Handle(Database.Collections, collections);
+                else if (command is EntityCommand<Coins> coins) CommandHandler<Coins>.Handle(Database.Coins, coins);
                 else throw new NotImplementedException();
             }
 

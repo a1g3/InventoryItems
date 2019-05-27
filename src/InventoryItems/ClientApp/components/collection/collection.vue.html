@@ -3,7 +3,55 @@
         <div>
             <h1>Collection {{ $route.params.id }}</h1>
         </div>
-        <CoinDialog :collectionId="$route.params.id" />
+        <v-dialog v-model="dialog" persistent max-width="900px">
+            <template v-slot:activator="{ on }">
+                <v-btn color="primary" dark v-on="on">Add Coin</v-btn>
+            </template>
+            <v-card>
+                <v-form ref="form">
+                    <v-card-title>
+                        <span class="headline">New Coin</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container grid-list-md>
+                            <v-layout wrap>
+                                <v-flex sm2>
+                                    <v-text-field label="ID" v-model="coin.id"></v-text-field>
+                                </v-flex>
+                                <v-flex sm2>
+                                    <v-autocomplete :items="items" label="Country*" v-model="coin.country" v-validate="'required'" :error-messages="errors.collect('country')" data-vv-name="country" required></v-autocomplete>
+                                </v-flex>
+                                <v-flex sm3>
+                                    <v-autocomplete :items="coin_types" label="Coin*" v-model="coin.type" v-validate="'required'" :error-messages="errors.collect('type')" data-vv-name="type" required></v-autocomplete>
+                                </v-flex>
+                                <v-flex sm1>
+                                    <v-text-field label="Year*" v-model="coin.year" v-validate="'required|integer'" :error-messages="errors.collect('year')" data-vv-name="year" required></v-text-field>
+                                </v-flex>
+                                <v-flex sm4>
+                                    <v-autocomplete :items="coin_conditions" label="Condition*" v-model="coin.condition" v-validate="'required'" :error-messages="errors.collect('condition')" data-vv-name="condition" required></v-autocomplete>
+                                </v-flex>
+                                <v-flex xs12>
+                                    <v-textarea label="Description" v-model="coin.description"></v-textarea>
+                                </v-flex>
+                                <v-flex xs12>
+                                    <v-progress-linear :indeterminate="true"></v-progress-linear>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                        <small>*indicates required field</small>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" :disabled="disableButtons" flat @click="clear">Close</v-btn>
+                        <v-btn color="blue darken-1" :disabled="disableButtons" flat @click="submit">Create</v-btn>
+                    </v-card-actions>
+                </v-form>
+            </v-card>
+        </v-dialog>
+        <v-snackbar v-model="snackbar" :timeout="timeout" top>
+            Coin created successfully!
+            <v-btn dark flat @click="snackbar = false">Close</v-btn>
+        </v-snackbar>
         <v-data-table :headers="headers"
                       :items="coins"
                       class="elevation-1">
@@ -13,6 +61,17 @@
                 <td class="text-xs-right">{{ coins.item.year }}</td>
                 <td class="text-xs-right">{{ coins.item.condition }}</td>
                 <td class="text-xs-right">{{ coins.item.mint }}</td>
+                <td class="text-xs-right">
+                    <v-icon small
+                            class="mr-2"
+                            @click="editItem(coins.item)">
+                        edit
+                    </v-icon>
+                    <v-icon small
+                            @click="deleteItem(coins.item)">
+                        delete
+                    </v-icon>
+                </td>
             </template>
         </v-data-table>
     </div>

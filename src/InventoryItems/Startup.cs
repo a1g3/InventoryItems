@@ -3,7 +3,9 @@ using AutoMapper;
 using InventoryItems.Controllers;
 using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain;
+using InventoryItems.Domain.Infastructure;
 using InventoryItems.Domain.Interfaces.Infastructure;
+using InventoryItems.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +50,7 @@ namespace InventoryItems {
 
             builder.RegisterType<CollectionsController>().PropertiesAutowired();
             builder.RegisterType<AccountsController>().PropertiesAutowired();
+            builder.RegisterType<CoinsController>().PropertiesAutowired();
 
             var settings = new Settings();
             Configuration.Bind(settings);
@@ -71,6 +74,8 @@ namespace InventoryItems {
             }
 
             Mapper.Initialize(config => {
+                config.AddProfile<WebMapperProfile>();
+                config.AddProfile<DomainMapperProfile>();
                 config.AddProfile<DataMapperProfile>();
             });
             Mapper.AssertConfigurationIsValid();

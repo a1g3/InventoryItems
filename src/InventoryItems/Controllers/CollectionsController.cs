@@ -4,12 +4,9 @@ using InventoryItems.Domain.Interfaces.Facades;
 using InventoryItems.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 
 namespace InventoryItems.Controllers {
     [Route("api/[controller]")]
@@ -40,18 +37,6 @@ namespace InventoryItems.Controllers {
             } catch (NameAlreadyExistsException) {
                 return new HttpResponseMessage(HttpStatusCode.Conflict);
             }
-        }
-
-        [HttpPut]
-        [Route("[action]")]
-        public HttpResponseMessage CreateCoin(CoinViewModel coin) {
-            string documentContents;
-            using (Stream receiveStream = this.Request.Body) {
-                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8)) {
-                    documentContents = readStream.ReadToEnd();
-                }
-            }
-            return new HttpResponseMessage(HttpStatusCode.Created);
         }
     }
 }

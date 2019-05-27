@@ -7,6 +7,6 @@
         public string Mint { get; set; }
         public string Condition { get; set; }
         public string Description { get; set; }
-        //public string Url { get; set; }
+        public string Url { get; set; }
     }
 }

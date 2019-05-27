@@ -1,10 +1,12 @@
-﻿using InventoryItems.Domain.Dtos;
+﻿using AutoMapper;
+using InventoryItems.Domain.Dtos;
 using InventoryItems.Domain.Exceptions;
 using InventoryItems.Domain.Interfaces.Facades;
 using InventoryItems.Domain.Interfaces.Repositories;
 using InventoryItems.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InventoryItems.Domain.Facades {
     public class CollectionFacade : ICollectionFacade {
@@ -18,7 +20,7 @@ namespace InventoryItems.Domain.Facades {
                 throw new NameAlreadyExistsException();
         }
 
-        public CollectionDto GetById(Guid collectionId) => CollectionRepsoitory.GetById(collectionId);
-        public IList<CollectionDto> GetAll() => CollectionRepsoitory.GetAll();
+        public CollectionDto GetById(Guid collectionId) => Mapper.Map<CollectionDto>(CollectionRepsoitory.GetById(collectionId));
+        public IList<CollectionDto> GetAll() => CollectionRepsoitory.GetAll().Select(Mapper.Map<CollectionDto>).ToList();
     }
 }
