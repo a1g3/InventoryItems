@@ -7,5 +7,7 @@ namespace InventoryItems.Domain.Interfaces.Services {
     public interface ICoinService {
         IList<CoinModel> GetCoins(Guid collectionId);
         void CreateCoin(Guid collectionId, CoinModel coinDto);
+        void UpdateCoin(Guid collectionId, CoinModel coinModel);
+        bool Exists(Guid collectionId, Guid id);
     }
 }

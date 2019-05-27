@@ -17,5 +17,12 @@ namespace InventoryItems.Data.Commands {
             using (var unitOfWork = UnitOfWorkFactory.GetUnitOfWork())
                 unitOfWork.Queue(new EntityCommand<Coins>(CommandType.CREATE, coinEntity));
         }
+
+        public void UpdateCoin(Guid collectionId, CoinEntityDto coinEntityDto) {
+            var coinEntity = Mapper.Map<Coins>(coinEntityDto);
+            coinEntity.CollectionId = collectionId;
+            using (var unitOfWork = UnitOfWorkFactory.GetUnitOfWork())
+                unitOfWork.Queue(new EntityCommand<Coins>(CommandType.UPDATE, coinEntity));
+        }
     }
 }

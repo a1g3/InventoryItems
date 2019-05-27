@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InventoryItems.Domain.Dtos;
+using InventoryItems.Domain.Exceptions;
 using InventoryItems.Domain.Interfaces.Facades;
 using InventoryItems.Domain.Interfaces.Services;
 using InventoryItems.Domain.Models;
@@ -12,6 +13,13 @@ namespace InventoryItems.Domain.Facades {
         public ICoinService CoinService { get; set; }
         public IList<CoinDto> GetCoinList(Guid collectionId) {
             return CoinService.GetCoins(collectionId).Select(Mapper.Map<CoinDto>).ToList();
+        }
+
+        public void UpdateCoin(Guid collectionId, CoinDto coinDto) {
+            if (CoinService.Exists(collectionId, coinDto.Id))
+                CoinService.UpdateCoin(collectionId, Mapper.Map<CoinModel>(coinDto));
+            else
+                throw new NotFoundException();
         }
 
         public void CreateCoin(Guid collectionId, CoinDto coinDto) {

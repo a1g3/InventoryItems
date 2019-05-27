@@ -10,16 +10,16 @@ using System.Net.Http;
 
 namespace InventoryItems.Controllers {
     [ApiController]
+    [Route("api/collections/{collectionId}/coins")]
     public class CoinsController : ControllerBase
     {
         public ICoinFacade CoinFacade { get; set; }
 
         [HttpPut]
-        [Route("api/collections/{collectionId}/coins/createcoin")]
-        public HttpResponseMessage CreateCoin(Guid collectionId, CoinViewModel coin)
+        public HttpResponseMessage Put(Guid collectionId, CoinViewModel coin)
         {
             try {
-                coin.Mint = "Denver";
+                coin.Country = "United States";
                 CoinFacade.CreateCoin(collectionId, Mapper.Map<CoinDto>(coin));
                 return new HttpResponseMessage(HttpStatusCode.Created);
             } catch {
@@ -27,10 +27,19 @@ namespace InventoryItems.Controllers {
             }
         }
 
-        // GET: api/Coins
+        [HttpPatch]
+        public HttpResponseMessage Patch(Guid collectionId, CoinViewModel coin) {
+            try {
+                CoinFacade.UpdateCoin(collectionId, Mapper.Map<CoinDto>(coin));
+                return new HttpResponseMessage(HttpStatusCode.Accepted);
+            }
+            catch (Exception ex) {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+        }
+
         [HttpGet]
-        [Route("api/collections/{collectionId}/coins/")]
-        public JsonResult GetCoinList(Guid collectionId) {
+        public JsonResult Get(Guid collectionId) {
             var coins = CoinFacade.GetCoinList(collectionId).Select(Mapper.Map<CoinViewModel>).ToList();
             return new JsonResult(coins);
         }

@@ -22,7 +22,7 @@ export default class CollectionComponent extends Vue {
     dialog: boolean = false;
     snackbar: boolean = false;
     disableButtons: boolean = false;
-    items: string[] = ['United States', 'Canada']
+    mint: string[] = ['Denver', 'Philidelphia', 'San Francisco', 'West Point']
     coin_types: string[] = ['Cent', 'Nickel', 'Dime', 'Quarter', 'Half Dollar', 'Small Dollar', 'Large Dollar']
     coin_conditions: string[] = ['Good', 'Very Good', 'Fine', 'Very Fine', 'Extremely Fine', 'About Uncirculated', 'Mint State']
     coin: Coin = new Coin();
@@ -34,33 +34,46 @@ export default class CollectionComponent extends Vue {
                 return;
             }
             this.disableButtons = true;
-            fetch('api/collections/' + this.collectionId + '/coins/createcoin', {
-                method: 'PUT',
-                body: JSON.stringify(this.coin),
-                headers: {
-                    'Content-Type': 'application/json'
+            let httpMethod = this.coin.id ? 'PATCH' : 'PUT';
+            this.saveCoin(httpMethod);
+        });
+    }
+
+    saveCoin(httpMethod: string): void {
+        fetch('api/collections/' + this.collectionId + '/coins/', {
+            method: httpMethod,
+            body: JSON.stringify(this.coin),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            response.json().then(json => {
+                if (json.isSuccessStatusCode) {
+                    this.disableButtons = false;
+                    this.dialog = false;
+                    this.snackbar = true;
+                    this.clear();
+                    this.loadCoinList();
+                } else {
+                    this.disableButtons = false;
+                    alert('Server Error!');
                 }
-            }).then((response) => {
-                response.json().then(json => {
-                    if (json.isSuccessStatusCode) {
-                        this.disableButtons = false;
-                        this.dialog = false;
-                        this.snackbar = true;
-                        this.clear();
-                        this.loadCoinList();
-                    } else {
-                        this.disableButtons = false;
-                        alert('Server Error!');
-                    }
-                });
             });
         });
     }
 
     clear() {
+        this.dialog = false;
         this.$validator.reset();
         this.coin = new Coin();
-        this.dialog = false;
+    }
+
+    formTitle(): string {
+        return this.coin.id ? "Edit Coin" : "New Coin";
+    }
+
+    actionButton(): string {
+        return this.coin.id ? "Save" : "Create";
     }
 
     editItem(item: Coin) {
@@ -91,9 +104,9 @@ export default class CollectionComponent extends Vue {
             },
             { text: 'Type', value: 'type', align: 'right' },
             { text: 'Year', value: 'year', align: 'right' },
-            { text: 'Condition', value: 'condition', align: 'right' },
             { text: 'Mint', value: 'mint', align: 'right' },
-            { text: 'Actions', align: 'right' },
+            { text: 'Condition', value: 'condition', align: 'right' },
+            { text: 'Actions', align: 'right', sortable: false },
         ]
     }
 }

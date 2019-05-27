@@ -13,6 +13,7 @@ namespace InventoryItems.Helpers {
     public class CoinViewModelToCoinDto : ITypeConverter<CoinViewModel, CoinDto> {
         public CoinDto Convert(CoinViewModel source, CoinDto destination, ResolutionContext context) {
             return new CoinDto() {
+                Id = Guid.Parse(source.Id),
                 FriendlyId = source.FriendlyId,
                 Condition = source.Condition,
                 Country = source.Country,

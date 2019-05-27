@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using InventoryItems.Domain.Dtos;
 using InventoryItems.Domain.EntityDtos;
 using InventoryItems.Domain.Interfaces.Commands;
 using InventoryItems.Domain.Interfaces.Repositories;
@@ -14,12 +13,12 @@ namespace InventoryItems.Domain.Services {
         public ICoinRepository CoinRepository { get; set; }
         public ICoinCommand CoinCommand { get; set; }
 
-        public IList<CoinModel> GetCoins(Guid collectionId) {
-            return CoinRepository.GetCoins(collectionId).Select(Mapper.Map<CoinModel>).ToList();
-        }
+        public IList<CoinModel> GetCoins(Guid collectionId) => CoinRepository.GetCoins(collectionId).Select(Mapper.Map<CoinModel>).ToList();
 
-        public void CreateCoin(Guid collectionId, CoinModel coinModel) {
-            CoinCommand.CreateCoin(collectionId, Mapper.Map<CoinEntityDto>(coinModel));
-        }
+        public void CreateCoin(Guid collectionId, CoinModel coinModel) => CoinCommand.CreateCoin(collectionId, Mapper.Map<CoinEntityDto>(coinModel));
+
+        public void UpdateCoin(Guid collectionId, CoinModel coinModel) => CoinCommand.UpdateCoin(collectionId, Mapper.Map<CoinEntityDto>(coinModel));
+
+        public bool Exists(Guid collectionId, Guid coinId) => CoinRepository.Exists(collectionId, coinId);
     }
 }
