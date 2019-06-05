@@ -8,6 +8,7 @@ namespace InventoryItems.Domain.Interfaces.Services {
         IList<CoinModel> GetCoins(Guid collectionId);
         void CreateCoin(Guid collectionId, CoinModel coinDto);
         void UpdateCoin(Guid collectionId, CoinModel coinModel);
+        void Delete(Guid coinId);
         bool Exists(Guid collectionId, Guid id);
     }
 }

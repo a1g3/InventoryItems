@@ -20,5 +20,7 @@ namespace InventoryItems.Domain.Services {
         public void UpdateCoin(Guid collectionId, CoinModel coinModel) => CoinCommand.UpdateCoin(collectionId, Mapper.Map<CoinEntityDto>(coinModel));
 
         public bool Exists(Guid collectionId, Guid coinId) => CoinRepository.Exists(collectionId, coinId);
+
+        public void Delete(Guid coinId) => CoinCommand.DeleteCoin(coinId);
     }
 }

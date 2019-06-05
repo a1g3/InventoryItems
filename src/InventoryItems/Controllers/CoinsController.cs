@@ -33,7 +33,7 @@ namespace InventoryItems.Controllers {
                 CoinFacade.UpdateCoin(collectionId, Mapper.Map<CoinDto>(coin));
                 return new HttpResponseMessage(HttpStatusCode.Accepted);
             }
-            catch (Exception ex) {
+            catch {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
@@ -42,6 +42,20 @@ namespace InventoryItems.Controllers {
         public JsonResult Get(Guid collectionId) {
             var coins = CoinFacade.GetCoinList(collectionId).Select(Mapper.Map<CoinViewModel>).ToList();
             return new JsonResult(coins);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage Delete([FromBody]Guid coinId)
+        {
+            try
+            {
+                CoinFacade.Delete(coinId);
+                return new HttpResponseMessage(HttpStatusCode.Accepted);
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

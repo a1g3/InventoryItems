@@ -22,6 +22,11 @@ namespace InventoryItems.Domain.Facades {
                 throw new NotFoundException();
         }
 
+        public void Delete(Guid coinId)
+        {
+            CoinService.Delete(coinId);
+        }
+
         public void CreateCoin(Guid collectionId, CoinDto coinDto) {
             CoinService.CreateCoin(collectionId, Mapper.Map<CoinModel>(coinDto));
         }

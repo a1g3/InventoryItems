@@ -62,6 +62,25 @@ export default class CollectionComponent extends Vue {
         });
     }
 
+    deleteCoin(): void {
+        fetch('api/collections/' + this.collectionId + '/coins/', {
+            method: 'DELETE',
+            body: JSON.stringify(this.coin.id),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            response.json().then(json => {
+                if (json.isSuccessStatusCode) {
+                    this.snackbar = true;
+                    this.loadCoinList();
+                } else {
+                    alert('Server Error!');
+                }
+            });
+        });
+    }
+
     clear() {
         this.dialog = false;
         this.$validator.reset();
@@ -79,6 +98,11 @@ export default class CollectionComponent extends Vue {
     editItem(item: Coin) {
         this.coin = item;
         this.dialog = true;
+    }
+
+    deleteItem(item: Coin) {
+        this.coin = item;
+        this.deleteCoin();
     }
 
 

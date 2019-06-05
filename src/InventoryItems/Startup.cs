@@ -1,6 +1,7 @@
 using Autofac;
 using AutoMapper;
 using InventoryItems.Controllers;
+using InventoryItems.Data;
 using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain;
 using InventoryItems.Domain.Infastructure;
@@ -28,6 +29,7 @@ namespace InventoryItems {
                 .Build();
 
             services.AddMvc().AddControllersAsServices();
+            services.AddDbContext<InventoryContext>(ServiceLifetime.Scoped);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
