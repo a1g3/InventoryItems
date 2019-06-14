@@ -6,10 +6,8 @@ namespace InventoryItems.Data {
         public InventoryContext() {}
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options) { }
 
-        public DbSet<Items> Items { get; set; }
-        public DbSet<ItemProperties> ItemProperties { get; set; }
-        public DbSet<Projects> Projects { get; set; }
-        public DbSet<Locations> Locations { get; set; }
+        public DbSet<Coins> Coins { get; set; }
+        public DbSet<Collections> Collections { get; set; }
         public DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

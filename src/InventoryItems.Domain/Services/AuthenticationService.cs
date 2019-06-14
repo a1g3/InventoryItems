@@ -1,4 +1,5 @@
 ﻿using InventoryItems.Domain.Dtos;
+using InventoryItems.Domain.EntityDtos;
 using InventoryItems.Domain.Interfaces.Infastructure;
 using InventoryItems.Domain.Interfaces.Repositories;
 using InventoryItems.Domain.Interfaces.Services;
@@ -13,7 +14,7 @@ namespace InventoryItems.Domain.Services {
     public class AuthenticationService : IAuthenticationService {
         public IUserRepository UserRepository { get; set; }
         public ISettings Settings { get; set; }
-        public User ValidateLogin(string username, string password) {
+        public UserEntityDto ValidateLogin(string username, string password) {
 
             var user = UserRepository.GetUser(username);
             if (user == null) return null;
@@ -28,7 +29,7 @@ namespace InventoryItems.Domain.Services {
             return user.Password == hashedInputPassword ? user : null;
         }
 
-        public string GenerateToken(User user) {
+        public string GenerateToken(UserEntityDto user) {
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };

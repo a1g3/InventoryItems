@@ -8,9 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\collectionDialog\collectionDialog.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\InventoryItems.Data\InventoryItems.Data.csproj" />
     <ProjectReference Include="..\InventoryItems.Domain\InventoryItems.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\collectionDialog\collectionDialog.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

@@ -12,11 +12,11 @@ namespace InventoryItems.Data.Tests.Utils {
 
             return new InventoryContext(options);
         }
-        public static List<Projects> CreateProjects() {
-            return new List<Projects>() {
-                new Projects(){ Id = Guid.NewGuid(), Name = "Project 1" },
-                new Projects(){ Id = Guid.NewGuid(), Name = "Project 2" },
-                new Projects(){ Id = Guid.NewGuid(), Name = "Project 3" }
+        public static List<Collections> CreateCollections() {
+            return new List<Collections>() {
+                new Collections(){ Id = Guid.NewGuid(), Name = "Collection 1" },
+                new Collections(){ Id = Guid.NewGuid(), Name = "Collection 2" },
+                new Collections(){ Id = Guid.NewGuid(), Name = "Collection 3" }
             };
         }
     }

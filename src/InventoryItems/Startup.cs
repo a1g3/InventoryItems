@@ -1,7 +1,12 @@
 using Autofac;
+using AutoMapper;
 using InventoryItems.Controllers;
+using InventoryItems.Data;
+using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain;
+using InventoryItems.Domain.Infastructure;
 using InventoryItems.Domain.Interfaces.Infastructure;
+using InventoryItems.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +29,7 @@ namespace InventoryItems {
                 .Build();
 
             services.AddMvc().AddControllersAsServices();
+            services.AddDbContext<InventoryContext>(ServiceLifetime.Scoped);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
@@ -44,8 +50,9 @@ namespace InventoryItems {
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly(), Assembly.Load("InventoryItems.Domain"), Assembly.Load("InventoryItems.Data"))
                 .AsImplementedInterfaces().PropertiesAutowired();
 
-            builder.RegisterType<ProjectsController>().PropertiesAutowired();
+            builder.RegisterType<CollectionsController>().PropertiesAutowired();
             builder.RegisterType<AccountsController>().PropertiesAutowired();
+            builder.RegisterType<CoinsController>().PropertiesAutowired();
 
             var settings = new Settings();
             Configuration.Bind(settings);
@@ -68,6 +75,13 @@ namespace InventoryItems {
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            Mapper.Initialize(config => {
+                config.AddProfile<WebMapperProfile>();
+                config.AddProfile<DomainMapperProfile>();
+                config.AddProfile<DataMapperProfile>();
+            });
+            Mapper.AssertConfigurationIsValid();
+
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc(routes =>
@@ -75,6 +89,11 @@ namespace InventoryItems {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
+
+                routes.MapRoute(
+                    name: "project",
+                    template: "collection/{collectionId}"
+                    );
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

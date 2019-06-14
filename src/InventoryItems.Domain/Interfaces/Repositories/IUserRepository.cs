@@ -1,7 +1,7 @@
-﻿using InventoryItems.Domain.Dtos;
+﻿using InventoryItems.Domain.EntityDtos;
 
 namespace InventoryItems.Domain.Interfaces.Repositories {
     public interface IUserRepository {
-        User GetUser(string username);
+        UserEntityDto GetUser(string username);
     }
 }
