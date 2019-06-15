@@ -3,6 +3,7 @@ using InventoryItems.Data.Entities;
 using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain.EntityDtos;
 using InventoryItems.Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace InventoryItems.Data.Repositories {
         public CoinRepository(IDatabaseFactory factory) : base(factory) {}
 
         public IList<CoinEntityDto> GetCoins(Guid collectionId) {
-            var coinEntities = (from coin in this.Db
+            var coinEntities = (from coin in this.Db.Include("Tags")
                                 where coin.CollectionId == collectionId
                                 select coin).ToList();
             return coinEntities.Select(Mapper.Map<CoinEntityDto>).ToList();

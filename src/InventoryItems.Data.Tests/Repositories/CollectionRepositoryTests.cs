@@ -21,7 +21,6 @@ namespace InventoryItems.Data.Tests.Repositories {
                 var collection = repo.GetById(collections[1].Id);
 
                 //ASSERT
-                Assert.IsInstanceOfType(collection, typeof(CollectionDto));
                 Assert.AreEqual("Collection 2", collection.Name);
                 Assert.AreEqual(collections[1].Id, collection.Id);
             }

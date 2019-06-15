@@ -1,4 +1,6 @@
-﻿namespace InventoryItems.ViewModels {
+﻿using System.Collections.Generic;
+
+namespace InventoryItems.ViewModels {
     public class CoinViewModel {
         public string Id { get; set; }
         public string FriendlyId { get; set; }
@@ -9,5 +11,6 @@
         public string Condition { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
+        public List<TagViewModel> Tags { get; set; }
     }
 }

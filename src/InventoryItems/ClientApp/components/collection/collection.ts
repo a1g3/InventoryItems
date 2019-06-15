@@ -12,6 +12,7 @@ class Coin {
     condition: string = '';
     description: string = '';
     mint: string = '';
+    tags: string[] = [];
 }
 
 @Component
@@ -130,7 +131,8 @@ export default class CollectionComponent extends Vue {
             { text: 'Year', value: 'year', align: 'right' },
             { text: 'Mint', value: 'mint', align: 'right' },
             { text: 'Condition', value: 'condition', align: 'right' },
-            { text: 'Actions', align: 'right', sortable: false },
+            { text: '', value: 'tags', align: 'right', sortable: false },
+            { text: 'Actions', align: 'right', sortable: false }
         ]
     }
 }

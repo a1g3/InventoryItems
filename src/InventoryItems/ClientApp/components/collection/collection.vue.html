@@ -61,6 +61,7 @@
                 <td class="text-xs-right">{{ coins.item.year }}</td>
                 <td class="text-xs-right">{{ coins.item.mint }}</td>
                 <td class="text-xs-right">{{ coins.item.condition }}</td>
+                <td class="text-xs-right"><v-chip v-for="tag in coins.item.tags" :key="tag">{{ tag }}</v-chip></td>
                 <td class="text-xs-right">
                     <v-icon small
                             class="mr-2"
