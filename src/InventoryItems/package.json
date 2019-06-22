@@ -30,6 +30,9 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
-    "@types/jquery": "^3.3.29"
+    "@types/jquery": "^3.3.29",
+    "axios": "^0.19.0",
+    "oidc-client": "^1.6.1",
+    "rxjs": "^6.4.0"
   }
 }

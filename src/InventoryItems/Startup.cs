@@ -6,19 +6,21 @@ using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain;
 using InventoryItems.Domain.Infastructure;
 using InventoryItems.Domain.Interfaces.Infastructure;
+using InventoryItems.Domain.Models;
 using InventoryItems.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using InventoryItems.Identity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
-namespace InventoryItems {
+namespace InventoryItems
+{
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
@@ -28,21 +30,21 @@ namespace InventoryItems {
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            services.AddMvc().AddControllersAsServices();
+            services.AddMvc(option => option.EnableEndpointRouting = false).AddControllersAsServices();
             services.AddDbContext<InventoryContext>(ServiceLifetime.Scoped);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Domain"],
-                    ValidAudience = Configuration["Domain"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                                    Encoding.UTF8.GetBytes(Configuration["TokenSecurityKey"]))
-                };
+
+            services.AddDefaultIdentity<User>()
+                .AddEntityFrameworkStores<UserContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<User, UserContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp";
             });
         }
 
@@ -60,7 +62,7 @@ namespace InventoryItems {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -80,7 +82,7 @@ namespace InventoryItems {
                 config.AddProfile<DomainMapperProfile>();
                 config.AddProfile<DataMapperProfile>();
             });
-            Mapper.AssertConfigurationIsValid();
+            //Mapper.AssertConfigurationIsValid();
 
             app.UseStaticFiles();
             app.UseAuthentication();

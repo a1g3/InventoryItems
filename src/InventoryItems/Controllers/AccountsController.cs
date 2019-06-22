@@ -13,7 +13,7 @@ namespace InventoryItems.Controllers {
         [HttpPost]
         public IActionResult Post(string username, string password) {
             var token = AuthenticationFacade.Login(username, password);
-            return token == null ? Forbid() : (IActionResult)Ok(new { Token = token });
+            return string.IsNullOrEmpty(token) ? Forbid() : (IActionResult)Ok(new { Token = token });
         }
     }
 }

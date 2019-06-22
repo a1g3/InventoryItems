@@ -2,6 +2,7 @@
 using InventoryItems.Domain.Dtos;
 using InventoryItems.Domain.Interfaces.Facades;
 using InventoryItems.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 
 namespace InventoryItems.Controllers {
+    [Authorize]
     [ApiController]
     [Route("api/collections/{collectionId}/coins")]
     public class CoinsController : ControllerBase
