@@ -12,6 +12,7 @@ namespace InventoryItems.Domain.Facades {
     public class CollectionFacade : ICollectionFacade {
         public ICollectionRepository CollectionRepsoitory { get; set; }
         public ICollectionService CollectionService { get; set; }
+        public IMapper Mapper { get; set; }
 
         public void CreateCollection(string collectionName) {
             if (!(string.IsNullOrEmpty(collectionName) || CollectionService.DoesCollectionExist(collectionName)))

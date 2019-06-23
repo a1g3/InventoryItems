@@ -12,6 +12,7 @@ namespace InventoryItems.Domain.Services {
     public class CoinService : ICoinService {
         public ICoinRepository CoinRepository { get; set; }
         public ICoinCommand CoinCommand { get; set; }
+        public IMapper Mapper { get; set; }
 
         public IList<CoinModel> GetCoins(Guid collectionId) => CoinRepository.GetCoins(collectionId).Select(Mapper.Map<CoinModel>).ToList();
 

@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace InventoryItems.Data.Repositories {
     public class CollectionRepository : Repository<Collections>, ICollectionRepository {
+        public IMapper Mapper { get; set; }
         public CollectionRepository(IDatabaseFactory factory) : base(factory) {}
 
         public IList<CollectionEntityDto> GetAll() {

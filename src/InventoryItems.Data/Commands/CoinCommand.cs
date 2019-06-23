@@ -10,7 +10,9 @@ using System;
 namespace InventoryItems.Data.Commands {
     public class CoinCommand : ICoinCommand {
         public IUnitOfWorkFactory UnitOfWorkFactory { get; set; }
+        public IMapper Mapper { get; set; }
         public InventoryContext Context { get; set; }
+
         public void CreateCoin(Guid collectionId, CoinEntityDto coinEntityDto) {
             var coinEntity = Mapper.Map<Coins>(coinEntityDto);
             coinEntity.Id = Guid.NewGuid();

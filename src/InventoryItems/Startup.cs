@@ -2,9 +2,7 @@ using Autofac;
 using AutoMapper;
 using InventoryItems.Controllers;
 using InventoryItems.Data;
-using InventoryItems.Data.Infastructure;
 using InventoryItems.Domain;
-using InventoryItems.Domain.Infastructure;
 using InventoryItems.Domain.Interfaces.Infastructure;
 using InventoryItems.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,7 +16,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace InventoryItems {
+namespace InventoryItems
+{
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
@@ -53,10 +52,12 @@ namespace InventoryItems {
             builder.RegisterType<CollectionsController>().PropertiesAutowired();
             builder.RegisterType<AccountsController>().PropertiesAutowired();
             builder.RegisterType<CoinsController>().PropertiesAutowired();
+            builder.RegisterType<MapperProvider>().As<IMapper>();
 
             var settings = new Settings();
             Configuration.Bind(settings);
             builder.RegisterInstance(settings).As<ISettings>();
+            builder.RegisterModule<MapperProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,13 +75,6 @@ namespace InventoryItems {
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            Mapper.Initialize(config => {
-                config.AddProfile<WebMapperProfile>();
-                config.AddProfile<DomainMapperProfile>();
-                config.AddProfile<DataMapperProfile>();
-            });
-            Mapper.AssertConfigurationIsValid();
 
             app.UseStaticFiles();
             app.UseAuthentication();

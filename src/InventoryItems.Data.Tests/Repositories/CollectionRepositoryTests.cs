@@ -1,11 +1,11 @@
 using InventoryItems.Data.Infastructure;
 using InventoryItems.Data.Repositories;
 using InventoryItems.Data.Tests.Utils;
-using InventoryItems.Domain.Dtos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace InventoryItems.Data.Tests.Repositories {
+namespace InventoryItems.Data.Tests.Repositories
+{
     [TestClass]
     public class CollectionRepositoryTests : TestBase {
         [TestMethod]
@@ -13,6 +13,7 @@ namespace InventoryItems.Data.Tests.Repositories {
             using (var context = DataCreation.CreateDb("CollectionRepository_Basic")) {
                 //ARRANGE
                 var repo = new CollectionRepository(new DatabaseFactory(context));
+                repo.Mapper = CreateMapper();
                 var collections = DataCreation.CreateCollections();
                 context.AddRange(collections);
                 context.SaveChanges();

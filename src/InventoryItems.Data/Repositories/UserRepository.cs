@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace InventoryItems.Data.Repositories {
     public class UserRepository : Repository<Users>, IUserRepository {
+        public IMapper Mapper { get; set; }
         public UserRepository(IDatabaseFactory factory) : base(factory) {}
 
         public UserEntityDto GetUser(string username) {

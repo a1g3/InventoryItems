@@ -6,11 +6,13 @@ namespace InventoryItems.Data.Tests {
     [TestClass]
     public class TestBase {
 
-        [AssemblyInitialize]
-        public static void TestAssemblyInit(TestContext testContext) {
-            Mapper.Initialize(config => {
-                config.AddProfile<DataMapperProfile>();
+        public static Mapper CreateMapper()
+        {
+            var mapperConfig = new MapperConfiguration(config => {
+                config.AddMaps("InventoryItems.Data");
             });
+
+            return new Mapper(mapperConfig);
         }
     }
 }

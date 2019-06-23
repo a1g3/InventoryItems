@@ -14,6 +14,7 @@ namespace InventoryItems.Controllers {
     public class CoinsController : ControllerBase
     {
         public ICoinFacade CoinFacade { get; set; }
+        public IMapper Mapper { get; set; }
 
         [HttpPut]
         public HttpResponseMessage Put(Guid collectionId, CoinViewModel coin)

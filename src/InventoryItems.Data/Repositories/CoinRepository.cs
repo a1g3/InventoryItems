@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace InventoryItems.Data.Repositories {
     public class CoinRepository : Repository<Coins>, ICoinRepository {
+        public IMapper Mapper { get; set; }
         public CoinRepository(IDatabaseFactory factory) : base(factory) {}
 
         public IList<CoinEntityDto> GetCoins(Guid collectionId) {

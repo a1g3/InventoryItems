@@ -14,6 +14,7 @@ namespace InventoryItems.Controllers {
     public class CollectionsController : ControllerBase
     {
         public ICollectionFacade CollectionFacade { get; set; }
+        public IMapper Mapper { get; set; }
 
         [HttpGet]
         [Route("[action]")]

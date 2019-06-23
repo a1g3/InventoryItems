@@ -9,6 +9,7 @@ using InventoryItems.Domain.Interfaces.Infastructure;
 namespace InventoryItems.Data.Commands {
     public class CollectionCommand : ICollectionCommand {
         public IUnitOfWorkFactory UnitOfWorkFactory { get; set; }
+        public IMapper Mapper { get; set; }
 
         public void CreateCollection(CollectionEntityDto collectionDto) {
             var collectionEntity = Mapper.Map<Collections>(collectionDto);

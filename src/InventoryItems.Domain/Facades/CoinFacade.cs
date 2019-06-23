@@ -11,6 +11,8 @@ using System.Linq;
 namespace InventoryItems.Domain.Facades {
     public class CoinFacade : ICoinFacade {
         public ICoinService CoinService { get; set; }
+        public IMapper Mapper { get; set; }
+
         public IList<CoinDto> GetCoinList(Guid collectionId) {
             return CoinService.GetCoins(collectionId).Select(Mapper.Map<CoinDto>).ToList();
         }
