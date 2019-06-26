@@ -52,7 +52,7 @@ namespace InventoryItems
             builder.RegisterType<CollectionsController>().PropertiesAutowired();
             builder.RegisterType<AccountsController>().PropertiesAutowired();
             builder.RegisterType<CoinsController>().PropertiesAutowired();
-            builder.RegisterType<MapperProvider>().As<IMapper>();
+            builder.RegisterModule<MapperProvider>();
 
             var settings = new Settings();
             Configuration.Bind(settings);
