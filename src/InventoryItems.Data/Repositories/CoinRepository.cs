@@ -14,7 +14,7 @@ namespace InventoryItems.Data.Repositories {
         public CoinRepository(IDatabaseFactory factory) : base(factory) {}
 
         public IList<CoinEntityDto> GetCoins(Guid collectionId) {
-            var coinEntities = (from coin in this.Db.Include("Tags")
+            var coinEntities = (from coin in this.Db
                                 where coin.CollectionId == collectionId
                                 select coin).ToList();
             return coinEntities.Select(Mapper.Map<CoinEntityDto>).ToList();

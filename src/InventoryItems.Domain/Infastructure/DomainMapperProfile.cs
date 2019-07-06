@@ -8,6 +8,7 @@ namespace InventoryItems.Domain.Infastructure {
     public class DomainMapperProfile : Profile {
         public DomainMapperProfile() {
             CreateMap<CoinModel, CoinEntityDto>();
+            CreateMap<CollectionEntityDto, CollectionDto>();
             CreateMap<CoinEntityDto, CoinModel>();
             CreateMap<CoinDto, CoinModel>().ConvertUsing<CoinDtoToCoinModel>();
             CreateMap<CoinModel, CoinDto>().ConvertUsing<CoinModelToCoinDto>();

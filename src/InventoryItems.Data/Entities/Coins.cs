@@ -17,6 +17,5 @@ namespace InventoryItems.Data.Entities {
 
         public Guid CollectionId { get; set; }
         public Collections Collection { get; set; }
-        public ICollection<CoinTags> Tags { get; set; }
     }
 }
