@@ -7,6 +7,7 @@ namespace InventoryItems.Helpers {
     public class WebMapperProfile : Profile {
         public WebMapperProfile() {
             CreateMap<CollectionDto, CollectionViewModel>();
+            CreateMap<CoinDto, CoinViewModel>();
             CreateMap<CoinViewModel, CoinDto>().ConvertUsing<CoinViewModelToCoinDto>();
         }
     }

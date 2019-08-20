@@ -11,6 +11,5 @@ namespace InventoryItems.ViewModels {
         public string Condition { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
-        public List<TagViewModel> Tags { get; set; }
     }
 }

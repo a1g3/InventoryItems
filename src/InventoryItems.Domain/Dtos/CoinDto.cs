@@ -10,7 +10,7 @@ namespace InventoryItems.Domain.Dtos {
         public short Year { get; set; }
         public string Mint { get; set; }
         public string Condition { get; set; }
-        public string Url { get; set; }
         public string Description { get; set; }
+        public string Url { get; set; }
     }
 }
