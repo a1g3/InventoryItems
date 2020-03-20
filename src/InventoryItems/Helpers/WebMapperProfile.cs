@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using InventoryItems.Domain.Dtos;
-using InventoryItems.ViewModels;
+using CoinCompanion.Web.Server.ViewModels;
 using System;
 
-namespace InventoryItems.Helpers {
+namespace CoinCompanion.Web.Server.Helpers {
     public class WebMapperProfile : Profile {
         public WebMapperProfile() {
             CreateMap<CollectionDto, CollectionViewModel>();

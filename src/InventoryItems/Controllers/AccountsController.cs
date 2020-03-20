@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InventoryItems.Controllers {
+namespace CoinCompanion.Web.Server.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase

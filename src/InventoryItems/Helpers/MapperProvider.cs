@@ -2,7 +2,7 @@
 using AutoMapper;
 using System.Reflection;
 
-namespace InventoryItems.Helpers
+namespace CoinCompanion.Web.Server.Helpers
 {
     public class MapperProvider : Autofac.Module
     {

@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace InventoryItems.ViewModels {
+﻿namespace CoinCompanion.Web.Server.ViewModels
+{
     public class CoinViewModel {
         public string Id { get; set; }
         public string FriendlyId { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InventoryItems.ViewModels
+namespace CoinCompanion.Web.Server.ViewModels
 {
     public class TagViewModel
     {

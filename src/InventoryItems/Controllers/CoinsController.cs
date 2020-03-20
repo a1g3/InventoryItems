@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using InventoryItems.Domain.Dtos;
 using InventoryItems.Domain.Interfaces.Facades;
-using InventoryItems.ViewModels;
+using CoinCompanion.Web.Server.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 
-namespace InventoryItems.Controllers {
+namespace CoinCompanion.Web.Server.Controllers {
     [ApiController]
     [Route("api/collections/{collectionId}/coins")]
     public class CoinsController : ControllerBase

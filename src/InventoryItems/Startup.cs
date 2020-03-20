@@ -1,22 +1,17 @@
 using Autofac;
-using AutoMapper;
-using InventoryItems.Controllers;
+using CoinCompanion.Web.Server.Controllers;
+using CoinCompanion.Web.Server.Helpers;
 using InventoryItems.Data;
 using InventoryItems.Domain;
 using InventoryItems.Domain.Interfaces.Infastructure;
-using InventoryItems.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
-namespace InventoryItems
+namespace CoinCompanion.Web.Server
 {
     public class Startup
     {
@@ -27,22 +22,8 @@ namespace InventoryItems
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            services.AddMvc().AddControllersAsServices();
+            services.AddControllersWithViews();
             services.AddDbContext<InventoryContext>(ServiceLifetime.Scoped);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Domain"],
-                    ValidAudience = Configuration["Domain"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                                    Encoding.UTF8.GetBytes(Configuration["TokenSecurityKey"]))
-                };
-            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder) {
@@ -61,37 +42,29 @@ namespace InventoryItems
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
+                app.UseWebAssemblyDebugging();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
+            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
-            app.UseAuthentication();
-            app.UseMvc(routes =>
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}");
-
-                routes.MapRoute(
-                    name: "project",
-                    template: "collection/{collectionId}"
-                    );
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

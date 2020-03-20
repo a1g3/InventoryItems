@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryItems", "InventoryItems\InventoryItems.csproj", "{DE2B69FF-C554-443E-A7D3-EF910F62B455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinCompanion.Web.Server", "InventoryItems\CoinCompanion.Web.Server.csproj", "{DE2B69FF-C554-443E-A7D3-EF910F62B455}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryItems.Data", "InventoryItems.Data\InventoryItems.Data.csproj", "{5386E2E9-E8AD-4D0C-8BB4-40C688FB601C}"
 EndProject
@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryItems.Data.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryItems.Domain.Tests", "InventoryItems.Domain.Tests\InventoryItems.Domain.Tests.csproj", "{71F27F6C-BBB0-4F9D-BD65-E4E9236119CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryItems.Tests", "InventoryItems.Tests\InventoryItems.Tests.csproj", "{E60728E0-8CF4-4D5B-977E-79431DCD779C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinCompanion.Web.Client", "CoinCompanion.Web.Client\CoinCompanion.Web.Client.csproj", "{F3A06680-9438-4921-9E7C-DED0E7B17DA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,10 @@ Global
 		{71F27F6C-BBB0-4F9D-BD65-E4E9236119CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F27F6C-BBB0-4F9D-BD65-E4E9236119CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71F27F6C-BBB0-4F9D-BD65-E4E9236119CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E60728E0-8CF4-4D5B-977E-79431DCD779C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E60728E0-8CF4-4D5B-977E-79431DCD779C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E60728E0-8CF4-4D5B-977E-79431DCD779C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E60728E0-8CF4-4D5B-977E-79431DCD779C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3A06680-9438-4921-9E7C-DED0E7B17DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3A06680-9438-4921-9E7C-DED0E7B17DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3A06680-9438-4921-9E7C-DED0E7B17DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3A06680-9438-4921-9E7C-DED0E7B17DA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
