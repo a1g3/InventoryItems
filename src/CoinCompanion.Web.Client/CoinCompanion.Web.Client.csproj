@@ -18,5 +18,11 @@
     <Content Remove="wwwroot\service-worker.js" />
     <Content Update="wwwroot\service-worker.published.js" Link="wwwroot\service-worker.js" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\icon-512.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
   
 </Project>
