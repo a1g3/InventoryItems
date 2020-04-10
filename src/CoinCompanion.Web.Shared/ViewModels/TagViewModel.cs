@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoinCompanion.Web.Server.ViewModels
+namespace CoinCompanion.Web.Shared.ViewModels
 {
     public class TagViewModel
     {

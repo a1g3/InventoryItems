@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
+using CoinCompanion.Web.Shared.ViewModels;
 using InventoryItems.Domain.Exceptions;
 using InventoryItems.Domain.Interfaces.Facades;
-using CoinCompanion.Web.Server.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 
-namespace CoinCompanion.Web.Server.Controllers {
+namespace CoinCompanion.Web.Server.Controllers
+{
     [Route("api/[controller]")]
     [ApiController]
     public class CollectionsController : ControllerBase
@@ -18,9 +20,14 @@ namespace CoinCompanion.Web.Server.Controllers {
 
         [HttpGet]
         [Route("[action]")]
-        public JsonResult GetCollectionList() {
-            var viewModel = CollectionFacade.GetAll().Select(Mapper.Map<CollectionViewModel>);
-            return new JsonResult(viewModel);
+        public IEnumerable<CollectionViewModel> GetCollectionList() {
+            return new List<CollectionViewModel>() { 
+                new CollectionViewModel() { Id = Guid.NewGuid(), Name = "Collection 1" },
+                new CollectionViewModel() { Id = Guid.NewGuid(), Name = "Collection 2" },
+                new CollectionViewModel() { Id = Guid.NewGuid(), Name = "Collection 3" }
+            };
+            //var viewModel = CollectionFacade.GetAll().Select(Mapper.Map<CollectionViewModel>);
+            //return viewModel;
         }
 
         [HttpGet]

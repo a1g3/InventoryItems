@@ -19,6 +19,9 @@
     <Content Update="wwwroot\service-worker.published.js" Link="wwwroot\service-worker.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoinCompanion.Web.Shared\CoinCompanion.Web.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="wwwroot\icon-512.png">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
