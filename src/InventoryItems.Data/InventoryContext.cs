@@ -12,7 +12,7 @@ namespace InventoryItems.Data {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=InventoryDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=CoinDB;Integrated Security=True");
         }
     }
 }

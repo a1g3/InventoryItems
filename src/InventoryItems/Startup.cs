@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using CoinCompanion.Web.Server.Controllers;
 using CoinCompanion.Web.Server.Helpers;
 using InventoryItems.Data;
@@ -16,13 +17,15 @@ namespace CoinCompanion.Web.Server
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         public void ConfigureServices(IServiceCollection services) {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            services.AddControllersWithViews();
+            services.AddControllers();
             services.AddDbContext<InventoryContext>(ServiceLifetime.Scoped);
         }
 
@@ -44,6 +47,8 @@ namespace CoinCompanion.Web.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();

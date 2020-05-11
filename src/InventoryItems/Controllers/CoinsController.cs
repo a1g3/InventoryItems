@@ -14,8 +14,14 @@ namespace CoinCompanion.Web.Server.Controllers
     [Route("api/collections/{collectionId}/coins")]
     public class CoinsController : ControllerBase
     {
-        public ICoinFacade CoinFacade { get; set; }
-        public IMapper Mapper { get; set; }
+        public ICoinFacade CoinFacade { get; private set; }
+        public IMapper Mapper { get; private set; }
+
+        public CoinsController(ICoinFacade coinFacade, IMapper mapper)
+        {
+            this.Mapper = mapper;
+            this.CoinFacade = coinFacade;
+        }
 
         [HttpPut]
         public HttpResponseMessage Put(Guid collectionId, CoinViewModel coin)

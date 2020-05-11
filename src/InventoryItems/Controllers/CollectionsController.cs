@@ -15,19 +15,20 @@ namespace CoinCompanion.Web.Server.Controllers
     [ApiController]
     public class CollectionsController : ControllerBase
     {
-        public ICollectionFacade CollectionFacade { get; set; }
-        public IMapper Mapper { get; set; }
+        public ICollectionFacade CollectionFacade { get; private set; }
+        public IMapper Mapper { get; private set; }
+
+        public CollectionsController(ICollectionFacade collectionFacade, IMapper mapper)
+        {
+            this.CollectionFacade = collectionFacade;
+            this.Mapper = mapper;
+        }
 
         [HttpGet]
         [Route("[action]")]
         public IEnumerable<CollectionViewModel> GetCollectionList() {
-            return new List<CollectionViewModel>() { 
-                new CollectionViewModel() { Id = Guid.NewGuid(), Name = "Collection 1" },
-                new CollectionViewModel() { Id = Guid.NewGuid(), Name = "Collection 2" },
-                new CollectionViewModel() { Id = Guid.NewGuid(), Name = "Collection 3" }
-            };
-            //var viewModel = CollectionFacade.GetAll().Select(Mapper.Map<CollectionViewModel>);
-            //return viewModel;
+            var viewModel = CollectionFacade.GetAll().Select(Mapper.Map<CollectionViewModel>);
+            return viewModel;
         }
 
         [HttpGet]
