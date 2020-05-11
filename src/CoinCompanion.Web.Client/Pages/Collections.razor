@@ -1,0 +1,32 @@
+﻿@page "/collections/{Id:guid}"
+@using CoinCompanion.Web.Shared.ViewModels
+@inject HttpClient Http
+
+<h3>Coins @Id</h3>
+@if (collections != null)
+{
+    foreach (var coin in collections)
+    {
+        <div>@coin.Id</div>
+        <div>@coin.FriendlyId</div>
+        <div>@coin.Condition</div>
+        <div>@coin.Country</div>
+        <div>@coin.Mint</div>
+        <div>@coin.Type</div>
+        <div>@coin.Url</div>
+        <div>@coin.Year</div>
+        <br />
+    }
+}
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private CoinViewModel[] collections = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        collections = await Http.GetJsonAsync<CoinViewModel[]>($"/api/collections/{Id}/coins");
+    }
+}
